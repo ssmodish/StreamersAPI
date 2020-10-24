@@ -1,9 +1,10 @@
 const express = require('express');
 
+
 // if the other routers are not nested inside /api then the paths would change
 const userRoutes = require('./users/userRoutes')
 const serviceProviderRoutes = require('./serviceProviders/serviceProviderRoutes')
-const stationRoutes = require('./stations/stationRoutes')
+const channelRoutes = require('./channels/channelRoutes')
 
 
 const router = express.Router(); // notice the Uppercase R
@@ -12,7 +13,7 @@ const router = express.Router(); // notice the Uppercase R
 // so we can remove that from the URLs, so "/api/users" becomes simply "/users"
 router.use('/users', userRoutes)
 router.use('/serviceProviders', serviceProviderRoutes)
-router.use('/stations', stationRoutes)
+router.use('/channels', channelRoutes)
 
 // .. and any other endpoint related to the user's resource
 
