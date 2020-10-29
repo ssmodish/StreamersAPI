@@ -24,36 +24,43 @@ router.get('/:id', (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).json({ message: "Failed to get user"})
+            res.status(500).json({ message: "Failed to get user", error: err })
         })
 })
 
 router.post('/', (req, res) => {
-    // validate data
+    // TODO - validate data
     const validatedUser = req.body
     Users.createUser(validatedUser)
         .then(user => {
             res.status(201).json(user)
         })
         .catch(err => {
-            res.status(500).json({ message: "Failed to create new user" })
+            res.status(500).json({ message: "Failed to create new user", error: err })
         })
 })
 
 router.put('/:id', (req, res) => {
-    // validate data
+    // TODO - validate data
     const validatedUser = req.body
+
     Users.updateUser(validatedUser, req.params.id)
-        .then(user => {
-            res.status(201).json(user)
+        .then(count => {
+            res.status(200).json(count)
         })
         .catch(err => {
-            res.status(500).json({ message: "Failed to create new user" })
+            res.status(500).json({ message: "Failed to update user", error: err })
         })
 })
 
 router.delete('/:id', (req, res) => {
-    res.status(200).send('hello from /users/:id DELETE endpoint')
+    Users.deleteUser(req.params.id)
+        .then(count => {
+            res.status(200).json(count)
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Failed to delete user", error: err })
+        })
 })
 
 
