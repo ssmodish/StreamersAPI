@@ -16,11 +16,11 @@ server.use(morgan('dev'))
 server.use('/api', apiRoutes)
 
 // Response if endpoint not found
-server.use(function(req, res) {
-    res.status(404).send('<h1>Not Found</h1>')
+server.use(function (req, res) {
+  res.status(404).send('<h1>Not Found</h1>')
 })
 
 // server.use('/', (req, res) => res.send('API up and running!'))
 server.listen(port, () => {
-    console.log(`Listening on port ${port}`)
+  console.log(`Listening on port ${port}`)
 })
