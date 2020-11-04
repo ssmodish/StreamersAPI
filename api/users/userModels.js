@@ -26,19 +26,9 @@ function createUser(userData) {
 }
 
 function updateUser(userData, id) {
-    return db('user')
-        .where('id', '=', id)
-        .update(userData)
-        .then(() => {
-            return getByID(id)
-        })
+    return db('user').where({ id: id }).update(userData)
 }
 
 function deleteUser(id) {
-    return db('user')
-        .returning('id')
-        .delete(userData, 'id')
-        .then(() => {
-            return getAll()
-        })
+    return db('user').where({ id: id }).delete()
 }
