@@ -27,13 +27,18 @@ function createUser(userData) {
 
 function updateUser(userData, id) {
     return db('user')
-        .returning('id')
-        .put(userData, 'id')
-        .then(([id]) => {
+        .where('id', '=', id)
+        .update(userData)
+        .then(() => {
             return getByID(id)
         })
 }
 
 function deleteUser(id) {
-
+    return db('user')
+        .returning('id')
+        .delete(userData, 'id')
+        .then(() => {
+            return getAll()
+        })
 }
