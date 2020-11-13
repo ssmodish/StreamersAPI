@@ -27,11 +27,12 @@ function createServiceProvider(serviceProviderData) {
 
 function updateServiceProvider(serviceProviderData, id) {
   return db('serviceProvider')
-    .returning('id')
-    .put(serviceProviderData, 'id')
-    .then(([id]) => {
-      return getByID(id)
-    })
+    .where({ id: id })
+    .update(serviceProviderData)
 }
 
-function deleteServiceProvider(id) {}
+function deleteServiceProvider(id) {
+  return db('serviceProvider')
+    .where({ id: id })
+    .delete()
+}

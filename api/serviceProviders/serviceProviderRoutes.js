@@ -1,25 +1,67 @@
 const express = require('express')
+const serviceProviderModels = require('./serviceProviderModels')
+const ServiceProviders = require('./serviceProviderModels')
 
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.status(200).send('hello from /serviceProviders GET endpoint')
+  ServiceProviders.getAll()
+    .then((serviceProviders) => {
+      res.status(200).json(serviceProviders)
+    })
+    .catch((err) => {
+      console.error(err)
+      res.status(500).json({ message: 'Failed to get service providers', error: err })
+    })
 })
 
 router.get('/:id', (req, res) => {
-  res.status(200).send('hello from /serviceProviders/:id GET endpoint')
+  ServiceProviders.getByID(req.params.id)
+    .then((serviceProvider) => {
+      if (serviceProvider) {
+        res.json(serviceProvider)
+      } else {
+        res.status(404).json({ message: 'Could not find provided service provider'})
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to get service provider', error: err })
+    })
 })
 
 router.post('/', (req, res) => {
-  res.status(200).send('hello from /serviceProviders POST endpoint')
+  // TODO - validate data
+  const validatedServiceProvider = req.body
+  ServiceProviders.createServiceProvider(validatedServiceProvider)
+    .then((serviceProvider) => {
+      res.status(201).json(user)
+    })
+    .catch((err => {
+      res.status(500).json({ message: 'Failed to create new service provider', error: err })
+    }))
 })
 
 router.put('/:id', (req, res) => {
-  res.status(200).send('hello from /serviceProviders/:id PUT endpoint')
+  // TODO - validate data
+  const validatedServiceProvider = req.body
+
+  ServiceProviders.updateServiceProvider(validatedServiceProvider, req.params.id)
+    .then((count) => {
+      res.status(200).json(count)
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to update service provider', error: err })
+    })
 })
 
 router.delete('/:id', (req, res) => {
-  res.status(200).send('hello from /serviceProviders/:id DELETE endpoint')
+  ServiceProviders.deleteServiceProvider(req.params.id)
+    .then((count) => {
+      res.status(200).json(count)
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to delete service provider', error: err })
+    })
 })
 
 module.exports = router

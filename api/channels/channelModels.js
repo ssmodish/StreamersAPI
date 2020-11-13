@@ -27,11 +27,12 @@ function createChannel(channelData) {
 
 function updateChannel(channelData, id) {
   return db('channel')
-    .returning('id')
-    .put(channelData, 'id')
-    .then(([id]) => {
-      return getByID(id)
-    })
+    .where({ id: id })
+    .update(channelData)
 }
 
-function deleteChannel(id) {}
+function deleteChannel(id) {
+  return db('channel')
+    .where({ id: id })
+    .delete()
+}
