@@ -1,0 +1,4 @@
+language: node_js
+notifications:
+  slack: stevethedeveloper:LmwiR2Z2tQND4GPwXcGtMQux
+    on_success: always
