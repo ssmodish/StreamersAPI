@@ -5,8 +5,8 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('service').insert([
-        { service: 'Orange' },
-        { service: 'Blue' },
+        { service: 'Orange', serviceProvider_id: 1 },
+        { service: 'Blue', serviceProvider_id: 1  },
       ])
     })
 }
